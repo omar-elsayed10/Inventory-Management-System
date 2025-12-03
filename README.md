@@ -106,7 +106,7 @@ model Category {
 ### 1️⃣ Clone the repo
 
 ```bash
-git clone https://github.com/your-username/inventory-management-system.git
+git clone https://github.com/omar-elsayed10/Inventory-Management-System.git
 cd inventory-management-system
 ```
 
