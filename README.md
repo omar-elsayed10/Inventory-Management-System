@@ -16,7 +16,6 @@ This project allows users to securely sign up / sign in, then access their perso
 | **ORM**            | Prisma                                                   |
 | **Database**       | PostgreSQL                                               |
 | **Authentication** | Clerk                                                    |
-| **Deployment**     | (Vercel / Railway / Render) ← *ضع المنصة التي استخدمتها* |
 
 ---
 
