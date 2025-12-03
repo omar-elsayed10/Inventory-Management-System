@@ -1,36 +1,184 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📦 Inventory Management System
 
-## Getting Started
+A modern, full-stack inventory management dashboard built with **Next.js**, **TypeScript** **Prisma**, **PostgreSQL**, **Shadcn UI**, and **Clerk Authentication**.
 
-First, run the development server:
+This project allows users to securely sign up / sign in, then access their personalized **dashboard** where they can manage products, categories, stock levels, and view analytics.
+
+---
+
+## 🚀 Tech Stack
+
+| Layer              | Technology                                               |
+| ------------------ | -------------------------------------------------------- |
+| **Frontend**       | Next.js 14 (App Router), React, TailwindCSS              |
+| **UI Components**  | Shadcn/UI                                                |
+| **Backend**        | Next.js API Routes                                       |
+| **ORM**            | Prisma                                                   |
+| **Database**       | PostgreSQL                                               |
+| **Authentication** | Clerk                                                    |
+| **Deployment**     | (Vercel / Railway / Render) ← *ضع المنصة التي استخدمتها* |
+
+---
+
+## ✨ Features
+
+* 🔐 **Secure Authentication** with Clerk (Sign In / Sign Up / Email verification).
+* 📊 **Dynamic Dashboard** per user at:
+
+  ```
+  /dashboard
+  ```
+* 📦 **Products Management**
+
+  * Add, edit, delete products
+  * Upload images
+  * Track quantity & status
+* 🏷️ **Category Management**
+
+  * Create & manage product categories
+* 📉 **Stock Tracking**
+
+  * Low-stock alerts
+  * Status indicators
+* 📈 **Analytics & KPIs**
+
+  * Total products
+  * Total categories
+  * Low stock count
+* 🎨 **Clean UI** thanks to Shadcn components
+* ⚡ **High Performance** using Next.js App Router & Server Actions
+
+---
+
+## 📁 Project Structure (Simplified)
+
+```
+/app
+  /dashboard
+    page.tsx
+    layout.tsx
+    components/*
+  /api
+    /products
+    /categories
+  /auth
+/prisma
+  schema.prisma
+/src
+  components/*
+  lib/*
+```
+
+---
+
+## 🧩 Database Model (Prisma)
+
+```prisma
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  products  Product[]
+  categories Category[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  quantity    Int
+  categoryId  String
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  category    Category  @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id      String    @id @default(cuid())
+  name    String
+  userId  String
+  user    User      @relation(fields: [userId], references: [id])
+  products Product[]
+}
+```
+
+---
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the repo
+
+```bash
+git clone https://github.com/your-username/inventory-management-system.git
+cd inventory-management-system
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Create env file
+
+```env
+DATABASE_URL="your_postgresql_connection"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key
+CLERK_SECRET_KEY=your_key
+```
+
+### 4️⃣ Push Prisma schema
+
+```bash
+npx prisma db push
+```
+
+### 5️⃣ Start the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Authentication Flow (Clerk)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. User creates an account via Clerk UI.
+2. After login, the user is automatically redirected to:
 
-## Learn More
+```
+/dashboard
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Each user sees **their own data only** (products, categories, analytics).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 Roadmap
 
-## Deploy on Vercel
+* Add multi-warehouse support
+* Export inventory as Excel/PDF
+* Add suppliers module
+* Add activity logs
+* Add role-based permissions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to improve.
+
+---
+
+## 📄 License
+
+MIT License.
+
+---
+
+## ⚡ Author
+
+**Omar Elsayed**
+Full-Stack Developer (MERN / Next.js)
+
+---
+
+
